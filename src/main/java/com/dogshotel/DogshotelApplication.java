@@ -1,6 +1,7 @@
 package com.dogshotel;
 
 import com.dogshotel.models.Dog;
+import com.dogshotel.models.Owner;
 import org.apache.ibatis.type.MappedTypes;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-@MappedTypes(Dog.class)
+@MappedTypes({Dog.class, Owner.class})
 @MapperScan("com.dogshotel.mappers")
 @SpringBootApplication
 @EnableCaching

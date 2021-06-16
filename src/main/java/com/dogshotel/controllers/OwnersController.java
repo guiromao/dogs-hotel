@@ -1,5 +1,6 @@
 package com.dogshotel.controllers;
 
+import com.dogshotel.mappers.OwnerMapper;
 import com.dogshotel.models.Dog;
 import com.dogshotel.models.Owner;
 import com.dogshotel.services.OwnerService;
@@ -19,6 +20,9 @@ public class OwnersController {
 
     @Autowired
     private OwnerService ownerService;
+
+    @Autowired
+    private OwnerMapper ownerMapper;
 
     @GetMapping({"/", ""})
     public ResponseEntity<List<Owner>> listOwners(){
@@ -40,6 +44,11 @@ public class OwnersController {
         Owner owner = ownerService.getById(id);
 
         return new ResponseEntity<>(owner.getDogs(), HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/ids")
+    public ResponseEntity<List<Owner>> getOwnersHigherThanId(@RequestParam Long minimId){
+        return new ResponseEntity<>(ownerMapper.getIdHigherThan(minimId), HttpStatus.ACCEPTED);
     }
 
     @PostMapping({"/", ""})

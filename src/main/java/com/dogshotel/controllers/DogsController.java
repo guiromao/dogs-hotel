@@ -37,7 +37,7 @@ public class DogsController {
 
     @GetMapping({"/dog", "dog"})
     public ResponseEntity<List<Dog>> getDogByName(@RequestParam String name){
-        List<Dog> dogs = dogMapper.findDogByName(name);
+        List<Dog> dogs = dogMapper.findDogsByName(name);
 
         return new ResponseEntity<>(dogs, HttpStatus.ACCEPTED);
     }
