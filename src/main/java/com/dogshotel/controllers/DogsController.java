@@ -1,5 +1,6 @@
 package com.dogshotel.controllers;
 
+import com.dogshotel.mappers.DogMapper;
 import com.dogshotel.models.Dog;
 import com.dogshotel.services.DogService;
 import org.springframework.beans.BeanUtils;
@@ -17,6 +18,13 @@ public class DogsController {
     @Autowired
     private DogService dogService;
 
+    @Autowired
+    private DogMapper dogMapper;
+
+    /*public DogsController(DogMapper mapper){
+        dogMapper = mapper;
+    }*/
+
     @GetMapping({"/", ""})
     public ResponseEntity<List<Dog>> listDogs(){
         return new ResponseEntity<>(dogService.listDogs(), HttpStatus.ACCEPTED);
@@ -25,6 +33,13 @@ public class DogsController {
     @GetMapping("{dogId}")
     public ResponseEntity<Dog> getDogById(@PathVariable Long dogId){
         return new ResponseEntity<>(dogService.getDogById(dogId), HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping({"/dog", "dog"})
+    public ResponseEntity<List<Dog>> getDogByName(@RequestParam String name){
+        List<Dog> dogs = dogMapper.findDogByName(name);
+
+        return new ResponseEntity<>(dogs, HttpStatus.ACCEPTED);
     }
 
     @PutMapping("{dogId}")
