@@ -9,9 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Logger;
 
 @RestController
@@ -19,10 +17,19 @@ import java.util.logging.Logger;
 public class HotelController {
 
     @GetMapping("/")
-    public ResponseEntity<String> welcome(){
-        String welcomeStr = "Welcome to the Dogs Hotel API!";
+    public ResponseEntity<Map> welcome(){
+        Map<String, String> respMap = new HashMap<>();
+        respMap.put("message", "Welcome to the Dogs Hotel API!");
 
-        return new ResponseEntity<>(welcomeStr, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(respMap, HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping({"/date", "date"})
+    public ResponseEntity<Map> getDate(){
+        Map<String, String> respMap = new HashMap<>();
+        respMap.put("date", String.valueOf(new Date()));
+
+        return new ResponseEntity<>(respMap, HttpStatus.ACCEPTED);
     }
 
 }
